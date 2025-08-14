@@ -5,6 +5,7 @@ import { JwtAuthGuard } from 'src/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { UpdateTaskUserDto } from './dto/update-task-user.dto';
 
 @Controller('task')
 export class TaskController {
@@ -36,5 +37,20 @@ export class TaskController {
    /*<========================================>
        🚩   Update Task End      🚩
    ===========================================>*/
+   /*<========================================>
+         🏳️   Update Task by Us Start    🏳️
+   ===========================================>*/
+
+   @Put('updatebyuser/:taskId')
+   @UseGuards(JwtAuthGuard)
+   updatebyuser(@Param('taskId') taskId: number, @Body() updateTaskUserDto: UpdateTaskUserDto, @Req() req: any) {
+       const userId = req.user.id;
+       return this.taskService.updatebyuser(updateTaskUserDto, userId, taskId);
+   }
+   /*<========================================>
+        🚩   Update Task by User Start    🚩
+   ===========================================>*/
+
+
 
 }

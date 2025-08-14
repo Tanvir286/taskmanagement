@@ -10,8 +10,8 @@ export enum TaskPriority {
 
 export enum TaskStatus {
   TODO = 'todo',
-  IN_PROGRESS = 'in_progress',
-  DONE = 'Done',
+  IN_PROGRESS = 'progress',
+  DONE = 'done',
 }
 
 @Entity()

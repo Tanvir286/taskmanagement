@@ -4,6 +4,10 @@ import { TaskPriority, TaskStatus } from 'src/entity/task.entity';
 
 export class UpdateTaskDto {
 
+
+  @IsInt()
+  id: number;  // Task ID to identify which task to update
+
   @IsOptional()
   @IsString()
   title?: string;
@@ -27,5 +31,5 @@ export class UpdateTaskDto {
   @IsOptional()
   @IsDateString()
   deadline?: string;
-  
+
 }
