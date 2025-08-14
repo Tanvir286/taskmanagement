@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthUser } from './entity/authuser.entity';
+import { TaskModule } from './task/task.module';
+import { Task } from './entity/task.entity';
 
 @Module({
   imports: [
@@ -14,10 +16,11 @@ import { AuthUser } from './entity/authuser.entity';
       username: 'postgres',
       password: '1943',
       database: 'taskmanagement',
-      entities: [AuthUser],
+      entities: [AuthUser,Task],
       synchronize: true,
     }),
-    AuthModule
+    AuthModule,
+    TaskModule
     ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+// authuser.entity.ts
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Task } from './task.entity';
 
 export enum UserRole {
   USER = 'user',
@@ -7,7 +9,6 @@ export enum UserRole {
 
 @Entity()
 export class AuthUser {
-    
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -20,10 +21,13 @@ export class AuthUser {
   @Column()
   password: string;
 
-  @Column({type: 'enum',enum: UserRole,default: UserRole.USER})  
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role: UserRole;
 
-  @Column({ nullable: true }) 
-  refreshToken?: string; 
+  @Column({ nullable: true, select: false })
+  refreshToken?: string;
 
+  // Relation: এক ইউজারের অনেক টাস্ক থাকতে পারে
+  @OneToMany(() => Task, (task) => task.assignedUser)
+  tasks: Task[];
 }
