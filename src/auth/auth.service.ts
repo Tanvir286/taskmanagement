@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import {v4 as uuidv4} from 'uuid'
-import { AuthUser } from 'src/entity/authuser.entity';
+import { AuthUser, UserRole } from 'src/entity/authuser.entity';
 import { Repository } from 'typeorm';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -124,6 +124,17 @@ export class AuthService {
     
     /*<========================================>
        🚩       Register Area End        🚩
+    ===========================================>*/
+     /*<========================================>
+       🏳️      GetAllUsers Area Start        🏳️
+    ===========================================>*/
+    async findAllUsers(): Promise<AuthUser[]> {
+        return this.usersRepository.find({
+            where: { role: UserRole.USER } // enum use kora hocche
+        });
+    }
+    /*<========================================>
+       🚩      GetAllUsers Area End        🚩
     ===========================================>*/
 
 

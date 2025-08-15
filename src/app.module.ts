@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthUser } from './entity/authuser.entity';
 import { TaskModule } from './task/task.module';
 import { Task } from './entity/task.entity';
+import { NotificationsModule } from './notifications/notifications.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -19,8 +21,11 @@ import { Task } from './entity/task.entity';
       entities: [AuthUser,Task],
       synchronize: true,
     }),
+
+    EventEmitterModule.forRoot(),
     AuthModule,
-    TaskModule
+    TaskModule,
+    NotificationsModule
     ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { JwtAuthGuard } from 'src/jwt-auth.guard';
@@ -14,15 +14,28 @@ export class TaskController {
     /*<========================================>
              🏳️   Create Task Start    🏳️
     ===========================================>*/
+
     @Post('create')
-    @UseGuards(JwtAuthGuard, RolesGuard)   
-    @Roles('admin')           
-    create(@Body() createTaskDto: CreateTaskDto, @Req() req: any) {
-        const userId = req.user.id;
-        return this.taskService.create(createTaskDto, userId);
+    @UseGuards(JwtAuthGuard)
+    @Roles('admin') 
+    createtask(@Body() createTaskDto: CreateTaskDto, ) {
+        
+        return this.taskService.createtask(createTaskDto);
     }
    /*<========================================>
        🚩   Create Task End      🚩
+   ===========================================>*/
+   /*<========================================>
+         🏳️   Get All Task Start    🏳️
+   ===========================================>*/
+
+   @Get('getall')
+   async getAll() {
+       return this.taskService.findAll();
+   }
+
+   /*<========================================>
+       🚩  Get All Task  End      🚩
    ===========================================>*/
    /*<========================================>
          🏳️   Update Task Start    🏳️
@@ -50,7 +63,18 @@ export class TaskController {
    /*<========================================>
         🚩   Update Task by User Start    🚩
    ===========================================>*/
+   /*<========================================>
+         🏳️   Delete Task Start    🏳️
+   ===========================================>*/
 
-
+   @Delete('delete/:taskId')
+   @UseGuards(JwtAuthGuard, RolesGuard)
+   @Roles('admin')
+   delete(@Param('taskId') taskId: number) {
+       return this.taskService.delete(taskId);
+   }
+   /*<========================================>
+        🚩   Delete Task End    🚩
+   ===========================================>*/
 
 }

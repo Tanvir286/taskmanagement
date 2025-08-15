@@ -1,4 +1,3 @@
-// authuser.entity.ts
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Task } from './task.entity';
 
@@ -27,7 +26,7 @@ export class AuthUser {
   @Column({ nullable: true, select: false })
   refreshToken?: string;
 
-  // Relation: এক ইউজারের অনেক টাস্ক থাকতে পারে
+  // Relation with tasks
   @OneToMany(() => Task, (task) => task.assignedUser)
   tasks: Task[];
 }

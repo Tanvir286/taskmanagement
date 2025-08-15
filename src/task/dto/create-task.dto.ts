@@ -1,5 +1,5 @@
 // src/task/dto/create-task.dto.ts
-import { IsString, IsEnum, IsOptional, IsDateString, IsInt } from 'class-validator';
+import { IsString, IsEnum, IsOptional, IsDateString, IsInt, ValidateIf } from 'class-validator';
 import { TaskPriority, TaskStatus } from 'src/entity/task.entity';
 
 export class CreateTaskDto {
@@ -9,8 +9,8 @@ export class CreateTaskDto {
   @IsString()
   description: string;
 
-  @IsInt()
-  assignedUserId?: number;  
+  @IsString()
+  user: string; 
 
   @IsEnum(TaskPriority)
   priority: TaskPriority;
@@ -18,7 +18,9 @@ export class CreateTaskDto {
   @IsEnum(TaskStatus)
   status: TaskStatus;
 
+  @IsOptional()
   @IsDateString()
-  deadline: string;
+  @ValidateIf((obj) => new Date(obj.deadline) >= new Date())
+  deadline?: string;
 }
 

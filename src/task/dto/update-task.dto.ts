@@ -1,13 +1,9 @@
 // src/task/dto/update-task.dto.ts
-import { IsString, IsEnum, IsOptional, IsDateString, IsInt } from 'class-validator';
+import { IsString, IsEnum, IsOptional, IsDateString, IsInt, ValidateIf } from 'class-validator';
 import { TaskPriority, TaskStatus } from 'src/entity/task.entity';
 
 export class UpdateTaskDto {
-
-
-  @IsInt()
-  id: number;  // Task ID to identify which task to update
-
+  
   @IsOptional()
   @IsString()
   title?: string;
@@ -16,9 +12,9 @@ export class UpdateTaskDto {
   @IsString()
   description?: string;
 
+  @IsString()
   @IsOptional()
-  @IsInt()
-  assignedUserId?: number;  
+  user?: string;
 
   @IsOptional()
   @IsEnum(TaskPriority)
@@ -30,6 +26,6 @@ export class UpdateTaskDto {
 
   @IsOptional()
   @IsDateString()
-  deadline?: string;
-
+  @ValidateIf((obj) => !obj.deadline || new Date(obj.deadline) >= new Date())
+  deadline?: string; 
 }

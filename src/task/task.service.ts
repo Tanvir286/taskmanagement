@@ -2,6 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { InjectRepository } from '@nestjs/typeorm';
 import { Task, TaskPriority, TaskStatus } from 'src/entity/task.entity';
 import { Repository } from 'typeorm';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { AuthUser } from 'src/entity/authuser.entity';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -15,6 +16,8 @@ export class TaskService {
 
     @InjectRepository(AuthUser)
     private readonly userRepository: Repository<AuthUser>,
+
+     private eventEmitter: EventEmitter2,
   ) {}
 
 
@@ -22,52 +25,101 @@ export class TaskService {
            🏳️   Create Task Start    🏳️
    ===========================================>*/ 
 
-    async create(createTaskDto: CreateTaskDto, userId: number): Promise<Task> {
-        
-        const { title, description, assignedUserId, priority, status, deadline } = createTaskDto;
+   // task.service.ts
+   async createtask(createTaskDto: CreateTaskDto): Promise<{ message: string; task: Task }> {
 
-        // Find the assigned user (optional)
-        let assignedUser: AuthUser | null = null;
-        if (assignedUserId) {
-            assignedUser = await this.userRepository.findOne({ where: { id: assignedUserId } });
-            if (!assignedUser) {
-                throw new NotFoundException('Assigned user not found');
-            }
+        const { title, description, user, priority, status, deadline } = createTaskDto;
+
+        const userEntity = await this.userRepository.findOne({ where: { username: user } });
+
+        console.log("Assigned User Entity:", userEntity);
+
+        if (!userEntity) {
+            throw new NotFoundException('User not found');
         }
 
-        // Create task entity
+        // Create the task
         const task = this.taskRepository.create({
-        title,
-        description,
-        assignedUser: assignedUser ?? undefined,
-        priority: priority || TaskPriority.MEDIUM,
-        status: status || TaskStatus.TODO,
-        deadline: deadline ?? undefined,
+            title,
+            description,
+            priority: priority || TaskPriority.MEDIUM,
+            status: status || TaskStatus.TODO,
+            deadline: deadline,
+            assignedUser: userEntity, 
         });
 
-        // Save to database
-        return this.taskRepository.save(task);
+        const savedTask = await this.taskRepository.save(task);
+        console.log("Saved Task:", savedTask);
+
+        // this.eventEmitter.emit('task.created', savedTask);
+        this.eventEmitter.emit('task.created', savedTask);
+
+        return {
+            message: 'Task created successfully',
+            task: savedTask,
+        };
+    
     }
+
 
     /*<========================================>
              🚩   Create Task End      🚩
     ===========================================>*/
+     /*<========================================>
+           🏳️   Get All Task Start    🏳️
+   ===========================================>*/ 
+    async findAll(): Promise<Task[]> {
+    return this.taskRepository.find({
+        relations: ['assignedUser'],
+        order: {
+        id: 'DESC', // Sort by id descending (latest first)
+        },
+    });
+    }
+
+   /*<========================================>
+             🚩   Get All Task End      🚩
+    ===========================================>*/
     /*<========================================>
            🏳️   Update Task Start    🏳️
     ===========================================>*/ 
-    async update(updateTaskDto: UpdateTaskDto, userId: number, taskId: number): Promise<any> {
-
-        const task = await this.taskRepository.findOne({ where: { id: taskId } });
-        if (!task) {
+   async update(updateTaskDto: UpdateTaskDto,userId: number,taskId: number): Promise<{ message: string; task: Task }> {
+       
+       const task = await this.taskRepository.findOne({ where: { id: taskId } });
+       
+       if (!task) {
             throw new NotFoundException('Task not found');
         }
+
+
+        if(updateTaskDto.user){
+
+             const userEntity = await this.userRepository.findOne({ where: { username: updateTaskDto.user } });
+
+             if (!userEntity) {
+                 throw new NotFoundException('User not found');
+             }
+
+             task.assignedUser = userEntity;
+        }
+
 
         // Update task properties
         Object.assign(task, updateTaskDto);
 
         // Save updated task
-        return await this.taskRepository.save(task);
+        await this.taskRepository.save(task);
+
+        // Socket emit
+        this.eventEmitter.emit('task.updated', task);
+
+        return {
+            message: 'Task updated successfully',
+            task: task
+        };
     }
+
+
     /*<========================================>
              🚩   Update Task End      🚩
     ===========================================>*/
@@ -103,12 +155,27 @@ export class TaskService {
     /*<========================================>
             🚩   Update Task by User End      🚩
     ===========================================>*/
+    /*<========================================>
+           🏳️   Delete Task  Start    🏳️
+    ===========================================>*/
+   async delete(taskId: number): Promise<any> {
 
+       const task = await this.taskRepository.findOne({ where: { id: taskId } });
+       if (!task) {
+           throw new NotFoundException('Task not found');
+       }
 
+       await this.taskRepository.remove(task);
 
+       // Socket emit
+       this.eventEmitter.emit('task.deleted', taskId);
 
+       return { message: 'Task deleted successfully' };
+   }
+   /*<========================================>
+            🚩   Delete Task End      🚩
+   ===========================================>*/
 
-    
 
 
 

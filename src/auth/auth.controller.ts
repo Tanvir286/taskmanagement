@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -10,8 +10,7 @@ export class AuthController {
 
     constructor(private readonly authService: AuthService) {}
 
-    /*🏳️<===============(Register Area Start)===============>🏳️*/
- 
+    /*🏳️<===============(Register Area Start)===============>🏳️*/ 
      @Post('register')
      async register(@Body() registerDto: RegisterDto ) {
             return this.authService.register(registerDto);
@@ -26,6 +25,11 @@ export class AuthController {
     }
     /*🚩<===============(Login Area End)===============>🚩*/
 
-    
+    /*🏳️<===============(GetAllUsers Area Start)===============>🏳️*/
+    @Get('getall')
+    async getAllUsers() {
+        return this.authService.findAllUsers();
+    }
+    /*🚩<===============(GetAllUsers Area End)===============>🚩*/
 
 }
