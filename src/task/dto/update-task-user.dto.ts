@@ -6,10 +6,6 @@ import { TaskPriority, TaskStatus } from 'src/entity/task.entity';
 export class UpdateTaskUserDto {
 
 
-  @IsInt()
-  id: number;  
-
-
   @IsOptional()
   @IsEnum(TaskStatus)
   status: TaskStatus;

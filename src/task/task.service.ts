@@ -72,7 +72,7 @@ export class TaskService {
     return this.taskRepository.find({
         relations: ['assignedUser'],
         order: {
-        id: 'DESC', // Sort by id descending (latest first)
+        id: 'DESC', // Sort by id 
         },
     });
     }
@@ -80,6 +80,17 @@ export class TaskService {
    /*<========================================>
              🚩   Get All Task End      🚩
     ===========================================>*/
+
+    async findByUserId(userId: number): Promise<Task[]> {
+        return this.taskRepository.find({
+            where: { assignedUser: { id: userId } },
+            relations: ['assignedUser'],
+            order: {
+                id: 'DESC',
+            },
+        });
+    }
+
     /*<========================================>
            🏳️   Update Task Start    🏳️
     ===========================================>*/ 
@@ -141,13 +152,16 @@ export class TaskService {
         }
 
     
-        // শুধু assignedUser নিজের টাস্ক আপডেট করতে পারবে
+        // শুধু assignedUser 
         if (!task.assignedUser || task.assignedUser.id !== userId) {
-            throw new ForbiddenException('আপনার অনুমতি নেই এই টাস্ক আপডেট করার');
+            throw new ForbiddenException('not allowed');
         }
 
         // শুধু status আপডেট হবে
         task.status = updateTaskUserDto.status;
+
+        // Socket emit
+        this.eventEmitter.emit('task.updatedbyuser', task);
 
         return this.taskRepository.save(task);
     }
@@ -158,20 +172,23 @@ export class TaskService {
     /*<========================================>
            🏳️   Delete Task  Start    🏳️
     ===========================================>*/
-   async delete(taskId: number): Promise<any> {
+    async delete(taskId: number): Promise<any> {
+        const task = await this.taskRepository.findOne({ where: { id: taskId } });
+        if (!task) {
+            throw new NotFoundException('Task not found');
+        }
 
-       const task = await this.taskRepository.findOne({ where: { id: taskId } });
-       if (!task) {
-           throw new NotFoundException('Task not found');
-       }
+        // আগে id ধরে রাখি
+        const deletedTaskId = task.id;
 
-       await this.taskRepository.remove(task);
+        await this.taskRepository.remove(task);
 
-       // Socket emit
-       this.eventEmitter.emit('task.deleted', taskId);
+        // কেবল id সহ emit করি
+        this.eventEmitter.emit('task.deleted', { id: deletedTaskId });
 
-       return { message: 'Task deleted successfully' };
-   }
+        return { message: 'Task deleted successfully' };
+    }
+
    /*<========================================>
             🚩   Delete Task End      🚩
    ===========================================>*/

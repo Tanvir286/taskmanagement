@@ -33,10 +33,22 @@ export class TaskController {
    async getAll() {
        return this.taskService.findAll();
    }
-
+   
    /*<========================================>
        🚩  Get All Task  End      🚩
    ===========================================>*/
+    /*<========================================>
+         🏳️   Get User Task Start    🏳️
+   ===========================================>*/
+
+   @Get('getuser/:userId')
+   async getUserTasks(@Param('userId') userId: number) {
+       return this.taskService.findByUserId(userId);
+   }
+    /*<========================================>
+       🚩  Get User Task  End      🚩
+   ===========================================>*/
+
    /*<========================================>
          🏳️   Update Task Start    🏳️
    ===========================================>*/

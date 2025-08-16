@@ -36,9 +36,22 @@ export class EventsGateway {
 
   // Task deleted
   @OnEvent('task.deleted')
-  handleTaskDeleted(taskId: number) {
-    this.server.emit('task.deleted', { id: taskId });
+  handleTaskDeleted(payload: { id: number }) {
+    this.server.emit('task.deleted', payload); 
   }
+
+
+  
+
+
+
+
+
+
+
+
+
+
 }
 
 
