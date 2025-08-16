@@ -29,7 +29,6 @@ export class TaskService {
            🏳️   Create Task Start    🏳️
    ===========================================>*/ 
 
-   // task.service.ts
    async createtask(createTaskDto: CreateTaskDto): Promise<{ message: string; task: Task }> {
 
         const { title, description, user, priority, status, deadline } = createTaskDto;
@@ -76,7 +75,7 @@ export class TaskService {
     return this.taskRepository.find({
         relations: ['assignedUser','comments'],
         order: {
-        id: 'DESC', // Sort by id 
+        id: 'DESC',  
         },
     });
     }
@@ -156,12 +155,10 @@ export class TaskService {
         }
 
     
-        // শুধু assignedUser 
         if (!task.assignedUser || task.assignedUser.id !== userId) {
             throw new ForbiddenException('not allowed');
         }
 
-        // শুধু status আপডেট হবে
         task.status = updateTaskUserDto.status;
 
         // Socket emit
@@ -182,12 +179,10 @@ export class TaskService {
             throw new NotFoundException('Task not found');
         }
 
-        // আগে id ধরে রাখি
         const deletedTaskId = task.id;
 
         await this.taskRepository.remove(task);
 
-        // কেবল id সহ emit করি
         this.eventEmitter.emit('task.deleted', { id: deletedTaskId });
 
         return { message: 'Task deleted successfully' };

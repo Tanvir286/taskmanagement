@@ -3,8 +3,8 @@ import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateCommentDto {
   @IsNotEmpty()
-  content: string; // Comment text
+  content: string;
 
   @IsNumber()
-  taskId: number; // Kon task er comment
+  taskId: number; 
 }

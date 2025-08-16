@@ -8,7 +8,7 @@ import { Comment } from 'src/entity/comment.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Task, AuthUser,Comment]) // Import Task and AuthUser entities for dependency injection
+    TypeOrmModule.forFeature([Task, AuthUser,Comment]) 
   ],
   providers: [TaskService],
   controllers: [TaskController]

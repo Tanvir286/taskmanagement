@@ -9,13 +9,12 @@ export class Comment {
   id: number;
 
   @Column()
-  content: string; // Comment text
+  content: string; 
 
-  // comment.entity.ts
   @ManyToOne(() => Task, (task) => task.comments, { onDelete: 'CASCADE' })
    task: Task;
 
-
   @CreateDateColumn()
-  createdAt: Date; // Comment creation date
+  createdAt: Date; 
 }
+

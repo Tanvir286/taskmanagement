@@ -25,7 +25,6 @@ export class CommentService {
 
         const { content, taskId } = createCommentDto;
 
-        // Find the task to which the comment belongs
         const task = await this.taskRepository.findOne({ where: { id: taskId } });
 
         if (!task) {
@@ -50,8 +49,8 @@ export class CommentService {
   
     async getAllComments(): Promise<Comment[]> {
         return this.commentRepository.find({
-            relations: ['task'], // ✅ task relation include kora
-            order: { createdAt: 'DESC' }, // Optional: newest comment age
+            relations: ['task'],  
+            order: { createdAt: 'DESC' },
         });
     }
 
