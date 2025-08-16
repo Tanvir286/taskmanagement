@@ -1,98 +1,114 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# TaskManagement
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Project Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+**TaskManagement** হল একটি আধুনিক, উচ্চ-প্রদর্শন ক্ষমতার টাস্ক ম্যানেজমেন্ট সিস্টেম যা টিমের মধ্যে সহযোগিতা সহজ করে এবং প্রোডাক্টিভিটি বাড়ায়। এটি রিয়েল-টাইম আপডেট, রোল-ভিত্তিক এক্সেস কন্ট্রোল, এবং স্কেলেবল অ্যাপ্লিকেশনের জন্য অপ্টিমাইজড পারফরম্যান্স প্রদান করে।
 
-## Description
+> **Note:** ভিডিওতে সব কিছুর বিস্তারিত দেওয়া আছে, একটু ভিডিও দেখুন।
+> [ভিডিও দেখুন](https://drive.google.com/file/d/1asd4wH5QmOYJHK7x_QSt4t52xs-k2DJg/view?usp=drive_link)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## Demo Credentials
 
-```bash
-$ npm install
-```
+**User:**
 
-## Compile and run the project
+* Email: [sukonna@gmail.com](mailto:sukonna@gmail.com)
+* Password: 123456
 
-```bash
-# development
-$ npm run start
+**Admin:**
 
-# watch mode
-$ npm run start:dev
+* Email: [tanvir1@gmail.com](mailto:tanvir1@gmail.com)
+* Password: 123456
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+## Live Demo
 
-```bash
-# unit tests
-$ npm run test
+* **Frontend:** [Click Here](https://taskmanagement-frontend-ten.vercel.app)
+* **Backend:** [Click Here](https://nestjs-task-production-09a2.up.railway.app/)
 
-# e2e tests
-$ npm run test:e2e
+---
 
-# test coverage
-$ npm run test:cov
-```
+## Repositories
 
-## Deployment
+* **Frontend:** [GitHub](https://github.com/Tanvir286/taskmanagement_frontend)
+* **Backend:** [GitHub](https://github.com/Tanvir286/taskmanagement)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+---
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Tech Stack
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+**Backend:**
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+* NestJS
+* TypeScript
+* Socket.IO
+* Redis
+* PostgreSQL
 
-## Resources
+**Frontend:**
 
-Check out a few resources that may come in handy when working with NestJS:
+* Next.js (React)
+* Material-UI / Tailwind CSS
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+**Real-Time Communication:**
 
-## Support
+* Socket.IO + Redis (Pub/Sub)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+**Authentication:**
 
-## Stay in touch
+* JWT-based auth with role-based access control
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**API Testing:**
 
-## License
+* Swagger / Postman
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+
+## Architecture & Modules
+
+### Modular Backend Structure (NestJS & TypeScript)
+
+Backend স্পষ্ট এবং maintainable modules এ organized:
+
+1. **Auth Module:**
+
+   * ইউজার authentication
+   * JWT-based authorization
+   * Secure role-based access
+
+2. **Task Module:**
+
+   * Task creation, update, assignment
+   * Status tracking
+
+3. **Notification Module:**
+
+   * Real-time notification পাঠানো
+   * Task updates ও alerts
+
+4. **Comment Module:**
+
+   * Add, update, delete comment
+
+### Real-time Functionality
+
+* Socket.IO ব্যবহার করে রিয়েল-টাইম task updates ও notifications।
+* Redis ব্যবহার করা হয়েছে caching ও pub/sub এর জন্য, যাতে দ্রুত এবং নির্ভরযোগ্য messaging হয়।
+
+### Role-Based Access Control
+
+* NestJS AuthGuard এবং custom roles decorators ব্যবহার করে implement করা হয়েছে।
+* Admin এবং User role অনুযায়ী granular permissions।
+
+---
+
+## Video Demo
+
+প্রজেক্টের বিস্তারিত দেখুন এই ভিডিওতে:
+[![ভিডিও ডেমো](https://img.youtube.com/vi/1asd4wH5QmOYJHK7x_QSt4t52xs-k2DJg/0.jpg)](https://drive.google.com/file/d/1asd4wH5QmOYJHK7x_QSt4t52xs-k2DJg/view?usp=drive_link)
+
+---
+
+**Project Author:** Tanvir Ahmed
