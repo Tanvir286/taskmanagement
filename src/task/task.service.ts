@@ -7,6 +7,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { AuthUser } from 'src/entity/authuser.entity';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { UpdateTaskUserDto } from './dto/update-task-user.dto';
+import { Comment } from 'src/entity/comment.entity';
 
 @Injectable()
 export class TaskService {
@@ -16,6 +17,9 @@ export class TaskService {
 
     @InjectRepository(AuthUser)
     private readonly userRepository: Repository<AuthUser>,
+
+    @InjectRepository(Comment)
+    private readonly commentRepository: Repository<Comment>,
 
      private eventEmitter: EventEmitter2,
   ) {}
@@ -70,7 +74,7 @@ export class TaskService {
    ===========================================>*/ 
     async findAll(): Promise<Task[]> {
     return this.taskRepository.find({
-        relations: ['assignedUser'],
+        relations: ['assignedUser','comments'],
         order: {
         id: 'DESC', // Sort by id 
         },

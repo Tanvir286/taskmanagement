@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, Check } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, Check, OneToMany } from 'typeorm';
 import { AuthUser } from './authuser.entity';
+import { Comment } from './comment.entity';
 
 export enum TaskPriority {
   HIGH = 'high',
@@ -36,4 +37,8 @@ export class Task {
 
   @ManyToOne(() => AuthUser, (user) => user.tasks)
   assignedUser: AuthUser;
+
+  @OneToMany(() => Comment, (comment) => comment.task)
+  comments: Comment[];
+
 }

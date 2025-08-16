@@ -8,6 +8,8 @@ import { TaskModule } from './task/task.module';
 import { Task } from './entity/task.entity';
 import { NotificationsModule } from './notifications/notifications.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { CommentModule } from './comment/comment.module';
+import { Comment } from './entity/comment.entity';
 
 @Module({
   imports: [
@@ -18,14 +20,15 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
       username: 'postgres',
       password: '1943',
       database: 'taskmanagement',
-      entities: [AuthUser,Task],
+      entities: [AuthUser,Task,Comment],
       synchronize: true,
     }),
 
     EventEmitterModule.forRoot(),
     AuthModule,
     TaskModule,
-    NotificationsModule
+    NotificationsModule,
+    CommentModule
     ],
   controllers: [AppController],
   providers: [AppService],

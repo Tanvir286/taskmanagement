@@ -41,9 +41,11 @@ export class EventsGateway {
   }
 
 
-  
-
-
+  // Task updated by user
+  @OnEvent('task.updatedbyuser')
+  handleTaskUpdatedByUser(task: any) {
+    this.server.emit('task.updatedbyuser', task);
+  }
 
 
 
